@@ -4,11 +4,15 @@ const hat = '^';
 const hole = 'O';
 const fieldCharacter = '█';
 const pathCharacter = '*';
+const colorBlue = '\x1b[34m';   // Blue for initial path
+const colorRed = '\x1b[31m';   // Red for game over
+const colorGreen = '\x1b[32m'; // Green for win
+const colorReset = '\x1b[0m';  // Reset to default white
 class Field {
     constructor(field) {
         this.field = field;
         this.playerPosition = { x: 0, y: 0 };
-        this.field[0][0] = pathCharacter; // Starting position
+        this.field[0][0] = `${colorBlue}${pathCharacter}${colorReset}`; // Starting position
     }
     print() {
         process.stdout.write('\x1Bc');
@@ -53,9 +57,6 @@ class Field {
         this.field[this.playerPosition.y][this.playerPosition.x] = pathCharacter;
     }
     playGame() {
-        const colorRed = '\x1b[31m';   // Red for game over
-        const colorGreen = '\x1b[32m'; // Green for win
-        const colorReset = '\x1b[0m';  // Reset to default white
         let playing = true;
         while (playing) {
             this.print();
